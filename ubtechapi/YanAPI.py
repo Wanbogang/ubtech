@@ -14,7 +14,6 @@ import asyncio
 from typing import List
 from typing import Dict
 import logging
-import nest_asyncio
 # from ubtechapi.lib_ukit import lib_send
 from socket import *
 import fcntl
@@ -30,7 +29,6 @@ from enum import Enum, unique
 basic_url = "http://127.0.0.1:9090/v1/"
 ip = "127.0.0.1"
 headers = {'Content-Type': 'application/json'}
-nest_asyncio.apply()
 
 def get_ip_address(ifname):
     s = socket(AF_INET, SOCK_DGRAM)
@@ -4833,6 +4831,7 @@ class RobotBuiltInMotion(Enum):
     head = "head"
     #鞠躬
     bow = "bow"
+
 
 @unique
 class RobotMotionDirection(Enum):
