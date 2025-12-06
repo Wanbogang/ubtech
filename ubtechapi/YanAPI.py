@@ -1312,7 +1312,7 @@ def __openStreamWindow(windowName,url,ip_addr:str = ip):
     ret = camera.isOpened()
     counter = 0
     if not ret:
-        print('Unable to accquire data')
+        logging.error('Unable to accquire data')
         cv2.destroyAllWindows()
         cv2.waitKey(1)
         if windowName == "aprilTag":
@@ -1323,16 +1323,16 @@ def __openStreamWindow(windowName,url,ip_addr:str = ip):
         while True:
             ret, frame = camera.read()
             if not ret:
-                print('fail to read data, ip may not correct')
+                logging.error('fail to read data, ip may not correct')
                 if counter > 2:
-                    print('maximum 2 retry occur, exit...')
+                    logging.error('maximum 2 retry occur, exit...')
                     cv2.destroyAllWindows()
                     cv2.waitKey(1)
                     camera.release()
                     exit(0)
                 else:
                     # cv2.destroyAllWindows()
-                    print('retry  VideoCapture')
+                    logging.error('retry  VideoCapture')
                     cv2.waitKey(1)
                     camera.release()
                     counter += 1
@@ -1348,7 +1348,7 @@ def __openStreamWindow(windowName,url,ip_addr:str = ip):
                     __stop_aprilTag_recognition()
                break
     except:
-        print('program crash')
+        logging.error('program crash')
         if windowName == "aprilTag":
             yan_api_init(ip_addr)
             __stop_aprilTag_recognition()
@@ -3959,10 +3959,10 @@ def show_visions_result(operation):
         elif res['code'] == 0:
             url = res['data']['url']
         else:
-            print(res['msg'])
+            logging.error(res['msg'])
             return
     except:
-        print("Something wrong I can not open...")
+        logging.error("Something wrong I can not open...")
         cv2.destroyAllWindows()
         cv2.waitKey(1)
         do_visions_visible('stop',operation)
@@ -3970,7 +3970,7 @@ def show_visions_result(operation):
     camera = cv2.VideoCapture(url)
     ret = camera.isOpened()
     if not ret:
-        print('Unable to accquire data')
+        logging.error('Unable to accquire data')
         cv2.destroyAllWindows()
         cv2.waitKey(1)
         do_visions_visible('stop',operation)
@@ -3979,9 +3979,9 @@ def show_visions_result(operation):
         while ret:
             ret, frame = camera.read()
             if not ret:
-                print('fail to read data, ip may not correct')
+                logging.error('fail to read data, ip may not correct')
                 if counter > 2:
-                    print('maximum 2 retry occur, exit...')
+                    logging.error('maximum 2 retry occur, exit...')
                     cv2.destroyAllWindows()
                     cv2.waitKey(1)
                     camera.release()
@@ -4010,7 +4010,7 @@ def show_visions_result(operation):
         cv2.waitKey(1)
         do_visions_visible('stop',operation)
     except:
-        print('program crash')
+        logging.error('program crash')
         cv2.destroyAllWindows()
         cv2.waitKey(1)
         do_visions_visible('stop',operation)
